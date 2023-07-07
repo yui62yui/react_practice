@@ -1,4 +1,5 @@
 import './App.css';
+import DarkMode from './component/DarkMode';
 import SelectList from './component/SelectList';
 import TodoList from './component/TodoList';
 
@@ -9,6 +10,7 @@ function App() {
       <hr/>
       <SelectList />
       <hr/>
+      <DarkMode />
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
@@ -21,15 +21,16 @@ export default function Layout() {
           color: "white",
         }}
       >
-        <div>로고</div>
+        <Link to="/" style={{color: "#fff", textDecoration:"none"}}>로고</Link>
+        {/* 로고 누르면 홈으로 이동 */}
         <div
           style={{
             display: "flex",
             gap: "12px",
           }}
         >
-          <div>로그인</div>
-          <div>회원가입</div>
+           <Link to="/login" style={{color: "#fff", textDecoration:"none"}}>로그인</Link>
+           <Link to="/signup" style={{color: "#fff", textDecoration:"none"}}>회원가입</Link>
         </div>
       </header>
 

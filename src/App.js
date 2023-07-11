@@ -4,6 +4,8 @@ import Main from './pages/Main';
 import Product from './pages/Product';
 import Products from './pages/Products';
 import Layout from './common/Layout';
+import Login from './common/Login';
+import Signup from './common/Signup';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/products" element={<Products />}></Route>
         <Route path="/products/:id" element={<Product />}></Route>
         {/* products뒤에 어떤 걸 입력하든 product 페이지로 이동함 */}
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
       </Route>
       <Route
         path="*"

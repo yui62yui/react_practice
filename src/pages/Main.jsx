@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 // 위 파일들은 import 필수
 
-export default function Main() {
+export default function Main({products}) {
     const navigate = useNavigate();
   return (
     <>
@@ -44,33 +44,21 @@ export default function Main() {
               gap: "24px",
             }}
           >
-            <div
-              style={{
-                width: "200px",
-                height: "240px",
-                backgroundColor: "#068FFF",
-              }}
-            >
-              상품1
-            </div>
-            <div
-              style={{
-                width: "200px",
-                height: "240px",
-                backgroundColor: "#068FFF",
-              }}
-            >
-              상품2
-            </div>
-            <div
-              style={{
-                width: "200px",
-                height: "240px",
-                backgroundColor: "#068FFF",
-              }}
-            >
-              상품3
-            </div>
+
+           {products.map((product)=>{
+              return (
+                <div key={product.id}
+                  style={{
+                    width: "200px",
+                    height: "240px",
+                    backgroundColor: "#068FFF",
+                  }}
+                >
+                  <p>{product.name}</p>
+                  <p>{product.price}</p>
+                </div>
+              )
+            })}
           </div>
         </section>
         {/* 추가적인 데이터 */}

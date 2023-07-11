@@ -1,34 +1,9 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function Product() {
-
-  const [ products, setProducts ] = useState([
-    {
-      id: 1,
-      name: "멋진 바지",
-      price: 20000,
-      option: [28, 30, 32],
-      likes: 100,
-    },
-    {
-      id: 2,
-      name: "멋진 셔츠",
-      price: 10000,
-      option: ["small", "medium", "large"],
-      likes: 200,
-    },
-    {
-      id: 3,
-      name: "멋진 신발",
-      price: 30000,
-      option: [230, 240, 250, 260, 270],
-      likes: 300,
-    }
-  ]);
+export default function Product({products}) {
 
   const [selected, setSelected] = useState("");
-
   const { id } = useParams();
 
   return (

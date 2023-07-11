@@ -1,16 +1,16 @@
 import './App.css';
-import DarkMode from './component/DarkMode';
-import SelectList from './component/SelectList';
-import TodoList from './component/TodoList';
+import TodoList2 from './component/TodoList2';
+import SelectList2 from './component/SelectList2';
+import DarkMode2 from './component/DarkMode2';
 
 function App() {
   return (
     <>
-      <TodoList />
-      <hr/>
-      <SelectList />
-      <hr/>
-      <DarkMode />
+     <TodoList2 />
+     <hr/>
+     <SelectList2 />
+     <hr/>
+     <DarkMode2 />
     </>
   )
 }

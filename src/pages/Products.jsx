@@ -30,7 +30,7 @@ export default function Products() {
             상품1
           </div>
         </Link>
-        <Link to="/products/1">
+        <Link to="/products/2">
           <div
             style={{
               width: "200px",
@@ -41,7 +41,7 @@ export default function Products() {
             상품2
           </div>
         </Link>
-        <Link to="/products/1">
+        <Link to="/products/3">
           <div
             style={{
               width: "200px",

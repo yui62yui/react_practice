@@ -27,8 +27,8 @@ export default function Product() {
     }
  }
   const minusNumber = (product) => {
-    if (selectedAmount <= 0) {
-      return alert("구매 개수는 0보다 작을 수 없습니다!")
+    if (selectedAmount <= 1) {
+      return alert("구매 개수는 1보다 작을 수 없습니다!")
     } else {
       return setSelectedAmount(selectedAmount - 1),
       setSelectedPrice(product.price * (selectedAmount - 1))

@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 // 위 파일들은 import 필수
+import { useSelector } from "react-redux";
 
-export default function Main({products}) {
+export default function Main() {
     const navigate = useNavigate();
+    const products = useSelector((state) => state.products)
+
   return (
     <>
       {/* main */}

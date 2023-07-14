@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { reset, sortByPrice } from "../index";
 
-export default function Products({products}) {
+export default function Products() {
+  const products = useSelector((state) => state.products)
+  const dispatch = useDispatch();
+
   return (
     <>
       <div
@@ -11,6 +16,13 @@ export default function Products({products}) {
         }}
       >
         <h2>🔥 여름 추천템 🔥</h2>
+        <button onClick={()=>{
+          dispatch(sortByPrice())
+        }}>
+          가격순으로 정렬해랏</button>
+          <button onClick={()=>{
+          dispatch(reset())
+        }}>정렬 리셋</button>
         <div
           style={{
             display: "flex",
@@ -18,7 +30,6 @@ export default function Products({products}) {
             gap: "24px",
           }}
         >
-        
         {products.map((product)=>{
           return(
             <Link to={`/products/${product.id}`} key={product.id}>

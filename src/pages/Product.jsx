@@ -1,51 +1,30 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, deleteFromCart } from "../index";
+import { addAmount, addToCart, deleteFromCart, minusAmount } from "../index";
 
 export default function Product() {
 
   const [selectedOption, setSelectedOption] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedAmount, setSelectedAmount] = useState(0);
-
-  const [cartOption, setCartOption] = useState("");
-  const [cartPrice, setCartPrice] = useState(0);
-  const [cartAmount, setCartAmount] = useState(0);
   
   const { id } = useParams();
   const products = useSelector((state) => state.products)
   const cart = useSelector((state)=>state.cart)
   const dispatch = useDispatch();
 
-  const addNumber = (product) => {
+  const addNumber = () => {
     if (selectedAmount !== 0 ) {
-      return setSelectedAmount(selectedAmount + 1),
-      setSelectedPrice(product.price * (selectedAmount + 1))
+      return setSelectedAmount(selectedAmount + 1)
     } else {
       return alert("구매옵션을 먼저 선택하세요!")
     }
  }
-  const minusNumber = (product) => {
+  const minusNumber = () => {
     if (selectedAmount <= 1) {
       return alert("구매 개수는 1보다 작을 수 없습니다!")
     } else {
-      return setSelectedAmount(selectedAmount - 1),
-      setSelectedPrice(product.price * (selectedAmount - 1))
-    }
-  }
-
-  const addCartNumber = (product) => {
-      return setCartAmount(cartAmount + 1),
-      setCartPrice(product.price * (cartAmount + 1))
-  }
-
-  const minusCartNumber = (product) => {
-    if (cartAmount <= 1) {
-      return cartAmount
-    } else {
-      return setCartAmount(cartAmount - 1),
-      setCartPrice(product.price * (cartAmount - 1))
+      return setSelectedAmount(selectedAmount - 1)
     }
   }
 
@@ -90,7 +69,6 @@ export default function Product() {
                       setSelectedAmount(1)
                       // 다른 옵션을 눌렀을 때 개수1로 초기화 시키기 위해 직접 1을 값으로 넣음
                       setSelectedOption(e.target.value);
-                      setSelectedPrice(product.price)
                       console.log(product.price)
                     }}
                   >
@@ -101,17 +79,13 @@ export default function Product() {
                   </select>
                   <p>구매옵션: {selectedOption}</p>
                   <p>개수: {selectedAmount}
-                    <button onClick={()=>{addNumber(product)}}>+</button>
-                    <button onClick={()=>{minusNumber(product)}}>-</button>
+                    <button onClick={()=>{addNumber()}}>+</button>
+                    <button onClick={()=>{minusNumber()}}>-</button>
                   </p>
-                  <p>총 금액: {selectedPrice}</p>
+                  <p>총 금액: </p>
                   <button onClick={()=>{
                     if (selectedAmount > 0 ) {
-                      return dispatch(addToCart(product)),
-                      setCartPrice(selectedPrice),
-                      setCartAmount(selectedAmount),
-                      setCartOption(selectedOption)
-
+                      return dispatch(addToCart({...product, amount: selectedAmount, amountPrice: selectedAmount * product.price}))
                     } else {
                       return alert("구매 옵션을 먼저 선택하세요!")
                     }
@@ -123,22 +97,21 @@ export default function Product() {
         </div>
         <h2>장바구니</h2>
         <div>
-          {cart.map((product, index)=>{
+          {cart.map((product)=>{
             return (
-              <div style={{border: "1px solid black",}} key={index}>
+              <div style={{border: "1px solid black",}} key={product.id}>
                 <h3>{product.name}</h3>
-                <h4>옵션: {cartOption}</h4>
+                <h4>옵션: {selectedOption}</h4>
                 <h3>가격: {product.price}원</h3>
                 <h3>좋아요: {product.likes}개</h3>
                 <h3>개수:
-                  <button onClick={()=>{minusCartNumber(product)}}>-</button>
-                  <span>{cartAmount}</span>
-                  <button onClick={()=>{addCartNumber(product)}}>+</button>
+                <button onClick={() => {dispatch(minusAmount(product))}}>-</button>
+                  <span>{product.amount}</span>
+                <button onClick={()=>{dispatch(addAmount(product))}}>+</button>
                 </h3>
-                <h3>총 금액: {cartPrice}원</h3>
-                <button onClick={()=>{
-                      return dispatch(deleteFromCart(product))
-                  }}>장바구니에서 제거하기</button>
+                <h3>총 금액: {product.amountPrice}원</h3>
+                <button onClick={()=>dispatch(deleteFromCart(product))
+                  }>장바구니에서 제거하기</button>
               </div>
             )
           })}

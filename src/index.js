@@ -49,15 +49,39 @@ let cart = createSlice({
     addToCart: (state,action) => {
       state.push(action.payload);
     },
+    addAmount: (state, action) => {
+      const product = state.find((item) => item.id === action.payload.id);
+      console.log(state)
+      // state 콘솔로 찍었을 때 Proxy(Array) {0: {…}} 로 나오고 0번에는 [[Handler]]: null[[Target]]: null[[IsRevoked]]: true 이런 게 나오는데 갑자기 state에서 find를 어떻게 쓰죠?????? 이해 불가...
+
+      product.amount += 1;
+      product.amountPrice = product.amount * product.price;
+
+
+      // action.payload = { ...action.payload, amount: action.payload.amount+1 }
+      // state = action.payload
+
+      // 바로 위 코드가 제가 쓴 코드인데 작동이 도저히 안 돼서 gpt한테 물어 봤더니 정상 작동되는 53-60번째 줄 코드를 알려 줬습니다...... 근데 도저히 저게 왜 작동되고 왜 제 거는 작동이 안 되는지 영문을 모르겠습니다.........
+    },
+    minusAmount: (state, action) => {
+      const product = state.find((item) => item.id === action.payload.id);
+      if (product.amount > 1) {
+        product.amount -= 1;
+        product.amountPrice = product.amount * product.price;
+      } else {
+        alert("구매수량은 1보다 작을 수 없습니다")
+      }
+      // action.payload = { ...action.payload, amount: action.payload.amount - 1 }
+      // state = action.payload
+    },
     deleteFromCart: (state,action) => {
       state.pop(action.payload)
     }
   }
 })
 
-export const { sortByPrice } = products.actions;
-export const { reset } = products.actions;
-export const { addToCart, deleteFromCart } = cart.actions;
+export const { sortByPrice, reset } = products.actions;
+export const { addToCart, addAmount, minusAmount, deleteFromCart } = cart.actions;
 
 const store = configureStore({
   reducer: {

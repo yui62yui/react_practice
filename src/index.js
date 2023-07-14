@@ -48,13 +48,16 @@ let cart = createSlice({
   reducers: {
     addToCart: (state,action) => {
       state.push(action.payload);
+    },
+    deleteFromCart: (state,action) => {
+      state.pop(action.payload)
     }
   }
 })
 
 export const { sortByPrice } = products.actions;
 export const { reset } = products.actions;
-export const { addToCart } = cart.actions;
+export const { addToCart, deleteFromCart } = cart.actions;
 
 const store = configureStore({
   reducer: {
